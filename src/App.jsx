@@ -44,11 +44,18 @@ export default function App() {
     setMovies([...movies, newMovie]);
   };
 
+  const handleClearAll = () => {
+    if (confirm("Clear your entire watchlist? This cannot be undone.")) {
+        setMovies([]);
+    }
+  };
+
   const visibleMovies = movies.filter((movie) => {
     if (filter === "watched") return movie.watched;
     if (filter === "unwatched") return !movie.watched;
     return true;
   })
+
 
   return (
     <Layout>
@@ -60,6 +67,7 @@ export default function App() {
       </div>
       <AddMovieForm onAddMovie={handleAddMovie}/>
       <SummaryBar movies={movies} />
+      <button className="btn btn-error btn-sm mb-6" onClick={handleClearAll}> Clear All </button>
       <FilterBar filter={filter} onFilterChange={setFilter} />
       <MovieList movies={visibleMovies} 
       onToggleWatched={handleToggleWatched} 
