@@ -1,14 +1,22 @@
 import Layout from "./layouts/Layout";
 import MovieList from "./components/MovieList";
 import moviesData from "./data/movies";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddMovieForm from "./components/AddMovieForm";
 import FilterBar from "./components/FilterBar";
 import SummaryBar from "./components/SummaryBar";
 
 export default function App() {
-  const [movies, setMovies] = useState(moviesData);
+  const [movies, setMovies] = useState(() => {
+    const saved = localStorage.getItem("movies");
+    return saved ? JSON.parse(saved) : moviesData;
+  });
+
   const [filter, setFilter] = useState("all"); 
+
+  useEffect (() => {
+    localStorage.setItem("movies", JSON.stringify(movies));
+  }, [movies]);
 
  const handleToggleWatched = (id) => {
     setMovies(
