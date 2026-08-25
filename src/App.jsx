@@ -12,7 +12,9 @@ export default function App() {
     return saved ? JSON.parse(saved) : moviesData;
   });
 
-  const [filter, setFilter] = useState("all"); 
+  const [filter, setFilter] = useState(() => {
+    return localStorage.getItem("filter") || "all";
+  }); 
 
   useEffect (() => {
     localStorage.setItem("movies", JSON.stringify(movies));
@@ -21,6 +23,10 @@ export default function App() {
   useEffect(() => {
     document.title = `Movie Watchlist (${movies.length})`;
   }, [movies.length]);
+
+  useEffect(() => {
+    localStorage.setItem("filter", filter);
+  }, [filter]);
 
  const handleToggleWatched = (id) => {
     setMovies(
