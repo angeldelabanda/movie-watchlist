@@ -1,7 +1,6 @@
 import MovieCard from "./MovieCard";
 
-export default function MovieList({ movies }) {
-  // TODO: destructure props — movies
+export default function MovieList({ movies, onToggleWatched, onDeleteMovie }) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -14,6 +13,8 @@ export default function MovieList({ movies }) {
           genre={movie.genre}
           rating={movie.rating}
           watched={movie.watched}
+          onToggle={() => onToggleWatched(movie.id)}
+          onDelete={() => onDeleteMovie(movie.id)}
         />
       ))}
     </div>
