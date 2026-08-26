@@ -6,6 +6,8 @@ import AddMovieForm from "./components/AddMovieForm";
 import FilterBar from "./components/FilterBar";
 import SummaryBar from "./components/SummaryBar";
 import { searchMovies } from "./api/tmdb";
+import SearchBar from "./components/SearchBar";
+import SearchResults from "./components/SearchResults";
 
 export default function App() {
   const [movies, setMovies] = useState(() => {
@@ -109,6 +111,13 @@ export default function App() {
           A collection of movies I've watched and want to watch.
         </p>
       </div>
+      <SearchBar onSearch={setSearchTerm} />
+      <SearchResults
+        results={results}
+        isLoading={isLoading}
+        error={error}
+        onAddMovie={handleAddMovie}
+      />
       <AddMovieForm onAddMovie={handleAddMovie}/>
       <SummaryBar movies={movies} />
       <button className="btn btn-error btn-sm mb-6" onClick={handleClearAll}> Clear All </button>
